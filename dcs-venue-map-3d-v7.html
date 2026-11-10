@@ -58,6 +58,7 @@ aside h2{font:800 12px Archivo,sans-serif;letter-spacing:1.4px;color:var(--muted
 .info .close:hover{background:var(--ground)}
 .fab{position:absolute;right:12px;bottom:34px;z-index:10;display:flex;flex-direction:column;gap:8px}
 .fab button{min-width:56px;height:44px;border-radius:12px;border:0;background:#fff;box-shadow:0 4px 14px rgba(33,16,47,.2);font:800 14px Archivo,sans-serif;color:var(--purple);cursor:pointer;padding:0 12px}
+.fab a.pmr{display:none;align-items:center;justify-content:center;text-align:center;text-decoration:none;min-width:56px;height:52px;border-radius:12px;background:#7030A0;color:#fff;box-shadow:0 4px 14px rgba(33,16,47,.2);font:800 11.5px/1.15 Archivo,sans-serif;padding:0 10px}
 .fab button[aria-pressed="true"]{background:var(--purple);color:#fff}
 .maplibregl-ctrl-group button{width:36px;height:36px}
 .floors{position:absolute;left:12px;bottom:40px;z-index:10;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(33,16,47,.2);padding:8px;display:flex;align-items:center;gap:6px}
@@ -128,7 +129,7 @@ aside h2{font:800 12px Archivo,sans-serif;letter-spacing:1.4px;color:var(--muted
   <div id="map">
     <div class="floors" role="group" aria-label="VIP stand floors"><span>VIP stand</span><button data-floor="3" aria-pressed="true">All<small>floors</small></button><button data-floor="1" aria-pressed="false">Floor 1<small>VIP rooms</small></button><button data-floor="2" aria-pressed="false">Floor 2<small>Platinum</small></button><button data-floor="3x" aria-pressed="false">Floor 3<small>Sky Boxes</small></button></div>
     <div class="plan" id="plan" role="region" aria-label="Floor plan"><button class="x" id="planX" aria-label="Close floor plan">×</button><div id="planBody"></div></div>
-    <div class="fab"><button id="bin" aria-label="Fly inside the stadium">Inside</button><button id="b3d" aria-pressed="true" aria-label="Toggle 3D view">3D</button><button id="bfit" aria-label="Show whole site">Site</button></div>
+    <div class="fab"><a class="pmr" id="bPmr" href="https://docs.google.com/spreadsheets/d/12QXIfsKhEAJGhwMUUvEBsqjyPXFBGWTOQ6JdmZzJ3ZA/edit" target="_blank" rel="noopener" aria-label="Open the post match report">Post Match<br>Report</a><button id="bin" aria-label="Fly inside the stadium">Inside</button><button id="b3d" aria-pressed="true" aria-label="Toggle 3D view">3D</button><button id="bfit" aria-label="Show whole site">Site</button></div>
     <div class="info" id="info" role="dialog" aria-live="polite" aria-label="Place details">
       <button class="close" id="infoClose" aria-label="Close details">×</button>
       <div class="chip"><i id="iSw"></i><span id="iCat"></span></div>
@@ -256,8 +257,10 @@ function roomDesc(s){ const where = s.side ? (s.kind==='sky' ? 'Sky Boxes ' : 'V
   return `${where} · Floor ${s.floor} · Enter at Gate ${String(s.gates).replace(' (Royal Suite)','')}`; }
 function roomName(s){ return s.side ? `${s.name} ${s.side}` : s.name; }
 const REPORT_FORM = 'https://tally.so/r/laq2O6';
-const TEAM = /[?&#]team\b/i.test(location.search + location.hash);
+const TEAM = false;
+if (TEAM) { const b = document.querySelector('.brand b'); if (b) b.insertAdjacentHTML('beforeend', ' <span style="background:#AAE323;color:#411066;border-radius:6px;padding:1px 7px;font-size:13px;vertical-align:3px">TEAM</span>'); }
 if (!TEAM) document.getElementById('iReport').style.display = 'none';
+else document.getElementById('bPmr').style.display = 'flex';
 let ALLOC = null; const who = k => (ALLOC && ALLOC.rooms && ALLOC.rooms[k]) || '';
 const hesc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let selKey = '';
