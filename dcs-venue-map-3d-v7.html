@@ -358,5 +358,6 @@ function loadAlloc(){
     .catch(() => fetch('allocations.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.text() : null).then(t => t && useAlloc(parseAlloc(t))).catch(() => {})); }
 loadAlloc(); setInterval(loadAlloc, 5 * 60 * 1000);
 </script>
+<script>/* visit counter */(function(){var id='x',nw=0;try{id=localStorage.getItem('dcsv');if(!id){id=Math.random().toString(36).slice(2,10);localStorage.setItem('dcsv',id);nw=1}}catch(e){}new Image().src='https://script.google.com/macros/s/AKfycbyqeCgIIMCgLzAAS_1FkwpuzSI10csprl007EVRlfn-b80jEKBf9M6GGU_osN0Hu1pnwg/exec?page=hit&m=public&v='+id+'&n='+nw+'&d='+(/Mobi|Android|iPhone/i.test(navigator.userAgent)?'mobile':'desktop')+'&t='+Date.now()})();</script>
 </body>
 </html>
